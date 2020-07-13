@@ -14,6 +14,8 @@
 #       In Progress
 
 class Player
+  attr_reader :piece
+
   def initialize(piece)
     @piece = piece
     puts @piece
@@ -26,18 +28,18 @@ class Board
     p @board_array
   end
 
-  def set_current_player
-    p @player1
-    @current_player = @player1
-    p @current_player
-  end
+  # def set_current_player
+  #   p Game.player1
+  #   @current_player = Game.player1
+  #   p @current_player
+  # end
 
   def update_board
     # @current_player=
   end
 
-  def add_piece(slot)
-    @board_array[slot] = @current_player.piece
+  def add_piece(slot, piece)
+    @board_array[slot] = piece
   end
 end
 
@@ -51,11 +53,12 @@ class Game
 
   def start_new_game
     p @player1
-    @board.set_current_player
+    # @board.set_current_player
     puts "X's Turn"
     puts 'Please enter a valid move'
     slot = gets.chomp.to_i
-    @board.add_piece(slot)
+    piece = player1.piece
+    @board.add_piece(slot, piece)
   end
 
   def check_game_over; end

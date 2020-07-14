@@ -35,15 +35,17 @@ class Board
   # end
 
   def update_board
-    # @current_player=
+    puts @board_array
   end
 
   def add_piece(slot, piece)
-    @board_array[slot] = piece
+    @board_array[slot - 1] = piece
   end
 end
 
 class Game
+  @@alive = true
+  @@current_player = nil
   attr_accessor :player1
   def initialize
     @board = Board.new
@@ -51,17 +53,31 @@ class Game
     @player2 = Player.new('O')
   end
 
-  def start_new_game
-    p @player1
-    # @board.set_current_player
-    puts "X's Turn"
-    puts 'Please enter a valid move'
-    slot = gets.chomp.to_i
-    piece = player1.piece
-    @board.add_piece(slot, piece)
+  def change_players
+    @@current_player = if @@current_player == @player1
+                         @player2
+                       else
+                         @player1
+                       end
   end
 
-  def check_game_over; end
+  def start_new_game
+    while @@alive
+      # p @player1
+      change_players
+      puts "#{@@current_player}'s turn"
+      puts 'Please enter a valid slot'
+      slot = gets.chomp.to_i
+      piece = @@current_player.piece
+      @board.add_piece(slot, piece)
+      @board.update_board
+      check_game_over
+    end
+  end
+
+  def check_game_over
+    @@alive = false if 0
+     end
 end
 
 game = Game.new

@@ -36,15 +36,15 @@ class Board
     !@board_array.include?(0)
   end
 
-  def check_win
+  def check_win(piece)
     win = false
     @wins_array.each do |possible_win|
       @result = []
       possible_win.each_with_index do |slot, index|
-        @result[index] = 'X' if @board_array[slot - 1] == 'X'
+        @result[index] = piece if @board_array[slot - 1] == piece
       end
       p "testing if #{possible_win} is a win: #{@result}"
-      win = true if @result.count('X') == 3
+      win = true if @result.count(piece) == 3
     end
     win
   end
@@ -82,8 +82,8 @@ class Game
   end
 
   def check_game_over
-    @@alive = false if @board.check_win || @board.check_full
-    puts 'X won' if @@alive == false
+    @@alive = false if @board.check_win(@@current_player.piece) || @board.check_full
+    puts "#{@@current_player.piece} won" if @@alive == false
   end
 end
 

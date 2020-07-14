@@ -1,17 +1,11 @@
 # frozen_string_literal: true
 
-# Classes:
-#   Players:
-#     ?AI Player?
-#     Piece Type
-#   Board:
-#     Positions:
-#       Empty
-#       Taken
-#   Game:
-#     State:
-#       Over
-#       In Progress
+# TO DO:
+
+# Allow O to win
+# Make the board display nicely
+# Input validation
+# Add option to play against the Computer
 
 class Player
   attr_reader :piece
@@ -49,7 +43,7 @@ class Board
       possible_win.each_with_index do |slot, index|
         @result[index] = 'X' if @board_array[slot - 1] == 'X'
       end
-      p "testing if #{possible_win} is a win : #{@result}"
+      p "testing if #{possible_win} is a win: #{@result}"
       win = true if @result.count('X') == 3
     end
     win
@@ -76,7 +70,6 @@ class Game
 
   def start_new_game
     while @@alive
-      # p @player1
       change_players
       puts "#{@@current_player.piece}'s turn"
       puts 'Please enter a valid slot'

@@ -2,8 +2,6 @@
 
 # TO DO:
 
-# Allow O to win
-# Make the board display nicely
 # Input validation
 # Add option to play against the Computer
 
@@ -17,15 +15,18 @@ class Player
 end
 
 class Board
+  attr_reader :win
   def initialize
     @board_array = Array.new(9, 0)
-    # p @board_array
-
     @wins_array = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
   end
 
   def update_board
-    p @board_array
+    puts <<-HEREDOC
+    #{@board_array[0]} #{@board_array[1]} #{@board_array[2]}
+    #{@board_array[3]} #{@board_array[4]} #{@board_array[5]}
+    #{@board_array[6]} #{@board_array[7]} #{@board_array[8]} 
+    HEREDOC
   end
 
   def add_piece(slot, piece)
@@ -37,16 +38,16 @@ class Board
   end
 
   def check_win(piece)
-    win = false
+    @win = false
     @wins_array.each do |possible_win|
       @result = []
       possible_win.each_with_index do |slot, index|
         @result[index] = piece if @board_array[slot - 1] == piece
       end
-      p "testing if #{possible_win} is a win: #{@result}"
-      win = true if @result.count(piece) == 3
+      puts "testing if #{possible_win} is a win: #{@result}"
+      @win = true if @result.count(piece) == 3
     end
-    win
+    @win
   end
 end
 
@@ -83,7 +84,7 @@ class Game
 
   def check_game_over
     @@alive = false if @board.check_win(@@current_player.piece) || @board.check_full
-    puts "#{@@current_player.piece} won" if @@alive == false
+    puts @board.win ? "#{@@current_player.piece} won" : "It's a tie!" if @@alive == false
   end
 end
 

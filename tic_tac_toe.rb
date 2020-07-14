@@ -4,6 +4,7 @@
 
 # Input validation
 # Add option to play against the Computer
+# Allow player to choose piece
 
 class Player
   attr_reader :piece
@@ -17,7 +18,7 @@ end
 class Board
   attr_reader :win
   def initialize
-    @board_array = Array.new(9, 0)
+    @board_array = Array.new(9, '-')
     @wins_array = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
   end
 
@@ -34,7 +35,7 @@ class Board
   end
 
   def check_full
-    !@board_array.include?(0)
+    !@board_array.include?('-')
   end
 
   def check_win(piece)

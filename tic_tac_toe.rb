@@ -28,18 +28,16 @@ class Board
     p @board_array
   end
 
-  # def set_current_player
-  #   p Game.player1
-  #   @current_player = Game.player1
-  #   p @current_player
-  # end
-
   def update_board
     puts @board_array
   end
 
   def add_piece(slot, piece)
     @board_array[slot - 1] = piece
+  end
+
+  def check_full
+    !@board_array.include?(0)
   end
 end
 
@@ -76,8 +74,8 @@ class Game
   end
 
   def check_game_over
-    @@alive = false if 0
-     end
+    @@alive = false if nil || @board.check_full
+  end
 end
 
 game = Game.new

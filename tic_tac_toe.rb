@@ -26,10 +26,12 @@ class Board
   def initialize
     @board_array = Array.new(9, 0)
     # p @board_array
+    @result = []
+    @wins_array = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
   end
 
   def update_board
-    puts @board_array
+    p @board_array
   end
 
   def add_piece(slot, piece)
@@ -38,6 +40,19 @@ class Board
 
   def check_full
     !@board_array.include?(0)
+  end
+
+  def check_win
+    win = false
+    @wins_array.each do |possible_win|
+      possible_win.each_with_index do |slot, index|
+        @result[index] = 'X' if @board_array[slot - 1] == 'X'
+        p 'hello'
+      end
+      p @result
+      win = true if @result.count('X') == 3
+    end
+    win
   end
 end
 
@@ -74,7 +89,7 @@ class Game
   end
 
   def check_game_over
-    @@alive = false if nil || @board.check_full
+    @@alive = false if @board.check_win || @board.check_full
   end
 end
 

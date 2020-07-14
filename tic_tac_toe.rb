@@ -18,14 +18,14 @@ class Player
 
   def initialize(piece)
     @piece = piece
-    puts @piece
+    # puts @piece
   end
 end
 
 class Board
   def initialize
     @board_array = Array.new(9, 0)
-    p @board_array
+    # p @board_array
   end
 
   def update_board
@@ -44,7 +44,7 @@ end
 class Game
   @@alive = true
   @@current_player = nil
-  attr_accessor :player1
+  # attr_accessor :player1
   def initialize
     @board = Board.new
     @player1 = Player.new('X')
@@ -63,7 +63,7 @@ class Game
     while @@alive
       # p @player1
       change_players
-      puts "#{@@current_player}'s turn"
+      puts "#{@@current_player.piece}'s turn"
       puts 'Please enter a valid slot'
       slot = gets.chomp.to_i
       piece = @@current_player.piece

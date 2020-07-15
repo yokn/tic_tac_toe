@@ -30,8 +30,17 @@ class Board
     HEREDOC
   end
 
-  def add_piece(slot, piece)
-    @board_array[slot - 1] = piece
+  def add_piece(piece)
+    @invalid_input = true
+    while @invalid_input
+      slot = gets.chomp.to_i
+      if @board_array[slot - 1] == '-'
+        @board_array[slot - 1] = piece
+        @invalid_input = false
+      else
+        puts 'Please enter an empty slot'
+      end
+    end
   end
 
   def check_full
@@ -75,9 +84,8 @@ class Game
       change_players
       puts "#{@@current_player.piece}'s turn"
       puts 'Please enter a valid slot'
-      slot = gets.chomp.to_i
       piece = @@current_player.piece
-      @board.add_piece(slot, piece)
+      @board.add_piece(piece)
       @board.update_board
       check_game_over
     end

@@ -21,12 +21,12 @@ class Board
     @invalid_input = true
     while @invalid_input
       # TIL: Strings get converted to 0 if #to_i is called on them
-      slot = gets.chomp.to_i
-      if @board_array[slot - 1] == '-' && slot != 0
-        @board_array[slot - 1] = piece
+      @slot = gets.chomp.to_i
+      if @board_array[@slot - 1] == '-' && @slot != 0
+        @board_array[@slot - 1] = piece
         @invalid_input = false
       else
-        puts 'Please enter an empty slot'
+        puts 'Invalid position. Try again.'
       end
     end
   end
@@ -42,7 +42,7 @@ class Board
       possible_win.each_with_index do |slot, index|
         @result[index] = piece if @board_array[slot - 1] == piece
       end
-      puts "testing if #{possible_win} is a win: #{@result}"
+      # puts "testing if #{possible_win} is a win: #{@result}"
       @win = true if @result.count(piece) == 3
     end
     @win

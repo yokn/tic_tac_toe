@@ -16,16 +16,23 @@ class Game
     @current_player = @current_player == @player1 ? @player2 : @player1
   end
 
-  def start_new_game
+  def play_game
     while @@alive
       change_players
       puts "#{@current_player.piece}'s turn"
       puts 'Please enter a valid move (1-9)'
       @piece = @current_player.piece
-      @board.add_piece(@piece)
+      @board.add_piece(@piece, @ai)
       @board.update_board
       check_game_over
     end
+  end
+
+  def start_new_game
+    puts 'Do you want play against the Computer?'
+    @ai = gets.chomp
+    @ai = @ai == 'true'
+    play_game
   end
 
   def check_game_over

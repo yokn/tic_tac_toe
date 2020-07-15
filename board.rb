@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# require 'pry'
+
 class Board
   attr_reader :win
   def initialize
@@ -17,11 +19,13 @@ class Board
     HEREDOC
   end
 
-  def add_piece(piece)
+  def add_piece(piece, ai)
     @invalid_input = true
+    @slot = make_ai_move if ai && piece == 'O'
+    # binding.pry
     while @invalid_input
       # TIL: Strings get converted to 0 if #to_i is called on them
-      @slot = gets.chomp.to_i
+      @slot = gets.chomp.to_i if piece == 'X'
       if @board_array[@slot - 1] == '-' && @slot != 0
         @board_array[@slot - 1] = piece
         @invalid_input = false
@@ -46,5 +50,9 @@ class Board
       @win = true if @result.count(piece) == 3
     end
     @win
+  end
+
+  def make_ai_move
+    rand(1..9)
   end
 end

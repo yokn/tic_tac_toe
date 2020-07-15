@@ -29,7 +29,7 @@ class Game
   end
 
   def start_new_game
-    puts 'Do you want play against the Computer?'
+    puts 'Do you want play against the Computer? (true/false)'
     @ai = gets.chomp
     @ai = @ai == 'true'
     play_game

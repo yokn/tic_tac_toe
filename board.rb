@@ -25,11 +25,12 @@ class Board
     # binding.pry
     while @invalid_input
       # TIL: Strings get converted to 0 if #to_i is called on them
-      @slot = gets.chomp.to_i if piece == 'X'
+      @slot = gets.chomp.to_i unless ai && piece == 'O'
       if @board_array[@slot - 1] == '-' && @slot != 0
         @board_array[@slot - 1] = piece
         @invalid_input = false
       else
+        # binding.pry
         puts 'Invalid position. Try again.'
       end
     end
@@ -53,6 +54,8 @@ class Board
   end
 
   def make_ai_move
-    rand(1..9)
+    @ai_move = 0
+    @ai_move = rand(1..9) until @board_array[@ai_move - 1] == '-' && @ai_move != 0
+    @ai_move
   end
 end

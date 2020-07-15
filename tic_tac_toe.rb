@@ -2,7 +2,6 @@
 
 # TO DO:
 
-# Input validation
 # Add option to play against the Computer
 # Allow player to choose piece
 
@@ -33,8 +32,9 @@ class Board
   def add_piece(piece)
     @invalid_input = true
     while @invalid_input
+      # TIL: Strings get converted to 0 if #to_i is called on them
       slot = gets.chomp.to_i
-      if @board_array[slot - 1] == '-'
+      if @board_array[slot - 1] == '-' && slot != 0
         @board_array[slot - 1] = piece
         @invalid_input = false
       else

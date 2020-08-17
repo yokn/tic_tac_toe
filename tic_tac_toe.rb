@@ -3,10 +3,9 @@
 # TO DO:
 
 # Privatize methods
-# Add option to play against the Computer
+# Make the AI smarter
 # Allow player to choose piece
 
 require './game.rb'
 
-game = Game.new
-game.start_new_game
+# Game.new.start_new_game

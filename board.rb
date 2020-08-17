@@ -3,7 +3,7 @@
 # require 'pry'
 
 class Board
-  attr_reader :win
+  attr_accessor :win, :board_array
   def initialize
     @board_array = Array.new(9, '-')
     @wins_array = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
@@ -22,7 +22,6 @@ class Board
   def add_piece(piece, ai)
     @invalid_input = true
     @slot = make_ai_move if ai && piece == 'O'
-    # binding.pry
     while @invalid_input
       # TIL: Strings get converted to 0 if #to_i is called on them
       @slot = gets.chomp.to_i unless ai && piece == 'O'

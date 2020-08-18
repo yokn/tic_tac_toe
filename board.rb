@@ -3,7 +3,7 @@
 # require 'pry'
 
 class Board
-  attr_accessor :win, :board_array
+  attr_accessor :win, :board_array, :slot, :invalid_input
   def initialize
     @board_array = Array.new(9, '-')
     @wins_array = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
@@ -19,19 +19,19 @@ class Board
     HEREDOC
   end
 
-  def add_piece(piece, ai)
-    @invalid_input = true
+  def ask_for_slot(piece, ai)
     @slot = make_ai_move if ai && piece == 'O'
-    while @invalid_input
-      # TIL: Strings get converted to 0 if #to_i is called on them
-      @slot = gets.chomp.to_i unless ai && piece == 'O'
-      if @board_array[@slot - 1] == '-' && @slot != 0
-        @board_array[@slot - 1] = piece
-        @invalid_input = false
-      else
-        # binding.pry
-        puts 'Invalid position. Try again.'
-      end
+    @slot = gets.chomp.to_i unless ai && piece == 'O'
+    add_piece(piece, ai)
+  end
+
+  def add_piece(piece, ai)
+    # TIL: Strings get converted to 0 if #to_i is called on them
+    if @board_array[@slot - 1] == '-' && @slot != 0
+      @board_array[@slot - 1] = piece
+    else
+      puts 'Invalid position. Try again.'
+      ask_for_slot(piece, ai)
     end
   end
 

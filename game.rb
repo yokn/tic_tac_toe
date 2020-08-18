@@ -23,7 +23,7 @@ class Game
       puts "#{@current_player.piece}'s turn"
       puts 'Please enter a valid move (1-9)'
       @piece = @current_player.piece
-      @board.add_piece(@piece, @ai)
+      @board.ask_for_slot(@piece, @ai)
       @board.update_board
       check_game_over
     end

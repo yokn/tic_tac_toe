@@ -19,20 +19,30 @@ class Board
     HEREDOC
   end
 
-  def ask_for_slot(piece, ai)
-    @slot = make_ai_move if ai && piece == 'O'
-    @slot = gets.chomp.to_i unless ai && piece == 'O'
-    add_piece(piece, ai)
+  def ask_for_slot(piece, ai, slot = nil)
+    slot = make_ai_move if ai && piece == 'O'
+    slot = gets.chomp.to_i unless ai && piece == 'O'
+    if check_slot_eligibility(slot)
+      add_piece(piece, slot)
+
+    else
+      ask_for_slot(piece, ai, slot)
+    end
   end
 
-  def add_piece(piece, ai)
+  def check_slot_eligibility(slot)
     # TIL: Strings get converted to 0 if #to_i is called on them
-    if @board_array[@slot - 1] == '-' && @slot != 0
-      @board_array[@slot - 1] = piece
+    if @board_array[slot - 1] == '-' && slot != 0
+      true
     else
       puts 'Invalid position. Try again.'
-      ask_for_slot(piece, ai)
+      false
+      # ask_for_slot(piece, ai)
     end
+  end
+
+  def add_piece(piece, slot)
+    @board_array[slot - 1] = piece
   end
 
   def check_full

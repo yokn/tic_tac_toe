@@ -2,6 +2,7 @@
 
 require './tic_tac_toe'
 
+# rubocop:disable Metrics/BlockLength
 describe 'tic_tac_toe' do
   describe Game do
     # before(:context) do
@@ -25,15 +26,12 @@ describe 'tic_tac_toe' do
       end
       context 'when adding a piece' do
         it 'adds the right piece to the right slot' do
-          @game.board.slot = 7
-          @game.board.add_piece('X', false)
+          @game.board.add_piece('X', 7)
           expect(@game.board.board_array[6]).to eql('X')
         end
         it 'asks for another slot if the selected slot is full' do
           @game.board.board_array[6] = 'O'
-          @game.board.slot = 7
-          @game.board.add_piece('X', false)
-          expect(@game.board.board_array[6]).to eql('X')
+          expect(@game.board.check_slot_eligibility(7)).to be false
         end
       end
     end

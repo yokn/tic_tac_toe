@@ -4,7 +4,7 @@ require './board.rb'
 require './player.rb'
 
 class Game
-  attr_accessor :board, :alive, :current_player
+  attr_accessor :board, :current_player
   def initialize
     @board = Board.new
     @player1 = Player.new('X')

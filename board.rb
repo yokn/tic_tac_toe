@@ -3,7 +3,7 @@
 # require 'pry'
 
 class Board
-  attr_accessor :win, :board_array, :slot, :invalid_input
+  attr_accessor :win, :board_array
   def initialize
     @board_array = Array.new(9, '-')
     @wins_array = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
@@ -24,7 +24,6 @@ class Board
     slot = gets.chomp.to_i unless ai && piece == 'O'
     if check_slot_eligibility(slot)
       add_piece(piece, slot)
-
     else
       ask_for_slot(piece, ai, slot)
     end
@@ -37,7 +36,6 @@ class Board
     else
       puts 'Invalid position. Try again.'
       false
-      # ask_for_slot(piece, ai)
     end
   end
 
@@ -62,9 +60,7 @@ class Board
     @win
   end
 
-  def make_ai_move
-    @ai_move = 0
-    @ai_move = rand(1..9) until @board_array[@ai_move - 1] == '-' && @ai_move != 0
-    @ai_move
+  def make_ai_move(ai_move = 0)
+    return ai_move = rand(1..9) until @board_array[ai_move - 1] == '-' && ai_move != 0
   end
 end

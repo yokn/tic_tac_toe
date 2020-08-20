@@ -32,7 +32,7 @@ class Board
 
   def check_slot_eligibility(slot)
     # TIL: Strings get converted to 0 if #to_i is called on them
-    false unless @board_array[slot - 1] == '-' && slot != 0
+    @board_array[slot - 1] == '-' && slot != 0 ? true : false
   end
 
   def add_piece(piece, slot)

@@ -13,7 +13,7 @@ describe 'tic_tac_toe' do
         @game.board.board_array = %w[X X X]
         expect(@game.board.check_win('X')).to be true
       end
-      it 'ends the game when X has three in a row' do
+      it 'ends the game when O has three in a row' do
         @game.board.board_array = %w[O O O]
         expect(@game.board.check_win('O')).to be true
       end

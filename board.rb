@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-# require 'pry'
+WINS_ARRAY = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]].freeze
 
 class Board
   attr_accessor :board_array
   def initialize
     @board_array = Array.new(9, '-')
-    @wins_array = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
   end
 
   def update_board
@@ -44,7 +43,7 @@ class Board
   end
 
   def check_win(piece)
-    @wins_array.each do |possible_win|
+    WINS_ARRAY.each do |possible_win|
       @result = []
       possible_win.each_with_index do |slot, index|
         @result[index] = piece if @board_array[slot - 1] == piece

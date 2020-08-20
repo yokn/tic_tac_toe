@@ -2,7 +2,7 @@
 
 require './tic_tac_toe'
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:di sable Metrics/BlockLength
 describe 'tic_tac_toe' do
   describe Game do
     context 'when the game is underway' do
@@ -10,14 +10,12 @@ describe 'tic_tac_toe' do
         @game = Game.new
       end
       it 'ends the game when X has three in a row' do
-        @game.current_player = @player1 = Player.new('X')
         @game.board.board_array = %w[X X X]
-        @game.check_game_over
+        expect(@game.board.check_win('X')).to be true
       end
-      it 'ends the game when O has three in a row' do
-        @game.current_player = @player1 = Player.new('O')
+      it 'ends the game when X has three in a row' do
         @game.board.board_array = %w[O O O]
-        @game.check_game_over
+        expect(@game.board.check_win('O')).to be true
       end
       context 'when adding a piece' do
         it 'adds the right piece to the right slot' do

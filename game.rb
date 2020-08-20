@@ -4,7 +4,7 @@ require './board.rb'
 require './player.rb'
 
 class Game
-  attr_accessor :board, :current_player
+  attr_accessor :board
   def initialize
     @board = Board.new
     @player1 = Player.new('X')
@@ -37,7 +37,17 @@ class Game
   end
 
   def check_game_over
-    @alive = false if @board.check_win(@current_player.piece) || @board.check_full
-    puts @board.win ? "#{@current_player.piece} won!" : "It's a tie!" if @alive == false
+    display_tie if @board.check_full
+    display_win(@current_player.piece) if @board.check_win(@current_player.piece)
   end
+end
+
+def display_win(piece)
+  @alive = false
+  puts "#{piece} won!"
+end
+
+def display_tie
+  @alive = false
+  puts "It's a tie!"
 end
